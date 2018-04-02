@@ -32,14 +32,14 @@ b = 38;
 % -------------------------------------------------------------------------
 
 % System of equations to be used in NR
-f1 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( li*sin(ti) + l1*sin(t1) + a - l2*sin(t2) );
-f2 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( li*cos(ti) + l1*cos(t1) + b - l2*cos(t2) );
-f3 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( li*sin(ti) + l1*sin(t1) + l3*sin(t3) + a - l4*sin(t4) );
-f4 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( li*cos(ti) + l1*cos(t1) + l3*cos(t3) + b - l4*cos(t4) );
-f5 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( li*sin(ti) + l6*sin(t6) + a - l7*sin(t7) );
-f6 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( li*cos(ti) + l6*cos(t6) + b - l7*cos(t7) );
-f7 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( li*sin(ti) + l1*sin(t1) + l3*sin(t3) + l5*sin(t5) + a - l7*sin(t7) - l8*sin(t8) );
-f8 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( li*cos(ti) + l1*cos(t1) + l3*cos(t3) + l5*cos(t5) + b - l7*cos(t7) - l8*cos(t8) );
+f1 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( 
+f2 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( 
+f3 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( 
+f4 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( 
+f5 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( 
+f6 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( 
+f7 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( 
+f8 = @(ti, t1, t2, t3, t4, t5, t6, t7, t8) ( 
 
 % Jacobian of non-linear system of equations to be used in NR
 d_f1_t1 = @(t1, t2, t3, t4, t5, t6, t7, t8) ( l1*cos(t1) );

@@ -210,35 +210,7 @@ end
 % Generate signal plot
 if create_plot == true
 
-    % Assign title to plot window.
-    %plot_title = sprintf('Input Signal and Output Signal Over Time %1.5f seconds', (end_time-start_time));
-    %window_title = 'MS1.2 Results';
-    %figure('Name', window_title);               % Create new figure, in case one was already open.
-    %hold on;                                    % Plot all data on this new figure.
-    %title(plot_title)                           % Title of plot. (Note this is different to the window title)
-    %xlabel('Amplitude (Volts)');
-    %ylabel('Time (Seconds)');
-    %plot(t, VO, 'r');                           % Plot input and output, ensure that they a coloured differently.
-    %plot(t, e, 'b');
-    %legend('Output Signal', 'Input Signal');    % Clearly label what is being plotted.  
 
-
-    % We will label our peak voltages.
-    %[m, index] = max(e);    % Find when the highest value for our input voltage is.
-
-    % Mark this point and the corresponding minimum. 
-    %text(t(index),e(index),'\leftarrow Maximum Value of Input')
-    %text(t(index+round(1/(2*freq*resolution))),e(index+round(1/(2*freq*resolution))),'\leftarrow Minimum Value of Input')
-
-    % Do the same for the output signal.
-    %[m, index] = max(VO);
-    %text(t(index),VO(index),'\leftarrow Maximum Value of Output')
-    %text(t(index+round(1/(2*freq*resolution))),VO(index+round(1/(2*freq*resolution))),'\leftarrow Minimum Value of Output')
-
-    % Annotate our graph with our calculated gain. Code adapted from MathWorks.com.
-    %dim = [0.65 0 0 0.2];
-    %str = sprintf('Average Gain = %f', VO/e);
-    %annotation('textbox',dim,'String',str,'FitBoxToText','on','BackgroundColor','White');
 end
 end
 
