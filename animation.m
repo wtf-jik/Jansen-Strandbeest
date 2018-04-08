@@ -2,7 +2,7 @@
 x = [1:100];
 y = [100:-1:1];
 
-% Set up first frame
+% Set up first frae
 figure()
 axis=([-100 100 -100 100])
 hh1(1) = line([0 x(1)], [0 y(1)],'Color', 'b');
