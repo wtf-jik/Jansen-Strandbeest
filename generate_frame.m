@@ -1,91 +1,57 @@
-function [gain] = generate_frame(l, t, ti, a, b, c)
+function [frame] = generate_frame(x, y)
 %Calculates the gain of a basic common-emiiter BJT amplifier.
 %   Takes no input.
 %   
 %
 %   Examples:
-%   bjt_common_emitter_amplifier()
+%   generate_frame()
 %
 %   John Casey :: 14350111
 
 % ENVIRONMENT
 % ----------------------------------------------------------------------------
 
-% Joint A
-positions(1, 1)  = l(10)*cos(ti);
-positions(1, 2)  = l(10)*sin(ti);
+    persistent g;
 
-% Joint B
-positions(2, 1)  = l(1)*cos(t(1)) + positions(1, 1);
-positions(2, 2)  = l(1)*sin(t(1)) + positions(1, 2);
+    if isempty(g)
+        g(12) = figure('units','pixels','position',[800 800 800 800]);
+        hold on;
+        axis([-120 50 -120 50]);
+        axis off;
+        g(1) = line([x(1) x(2)],[y(1) y(2)],'Color','k','LineWidth',8);
+        g(2) = line([x(2) x(3)],[y(2) y(3)],'Color','k','LineWidth',8);
+        g(3) = line([x(3) x(5)],[y(3) y(5)],'Color','k','LineWidth',8);
+        g(4) = line([x(5) x(4)],[y(5) y(4)],'Color','k','LineWidth',8);
+        g(5) = line([x(4) x(1)],[y(4) y(1)],'Color','k','LineWidth',8);
+        g(6) = line([x(7) x(1)],[y(7) y(1)],'Color','g','LineWidth',8);
+        g(7) = line([x(8) x(4)],[y(8) y(4)],'Color','k','LineWidth',8);
+        g(8) = line([x(8) x(2)],[y(8) y(2)],'Color','k','LineWidth',8);
+        g(9) = line([x(8) x(3)],[y(8) y(3)],'Color','k','LineWidth',8);
+        g(10) = line([x(6) x(4)],[y(6) y(4)],'Color','k','LineWidth',8);
+        g(11) = line([x(6) x(5)],[y(6) y(5)],'Color','k','LineWidth',8);
+        for i = 1: length(x)
+            g(i + 12) = plot(x(i), y(i), '.k', 'MarkerSize', 50);
+        end
+        
+    else
+        set(g(1), 'XData', [x(1) x(2)], 'YData', [y(1) y(2)]);
+        set(g(2), 'XData', [x(2) x(3)], 'YData', [y(2) y(3)]);
+        set(g(3), 'XData', [x(3) x(5)], 'YData', [y(3) y(5)]);
+        set(g(4), 'XData', [x(5) x(4)], 'YData', [y(5) y(4)]);
+        set(g(5), 'XData', [x(4) x(1)], 'YData', [y(4) y(1)]);
+        set(g(6), 'XData', [x(7) x(1)], 'YData', [y(7) y(1)]);
+        set(g(7), 'XData', [x(8) x(4)], 'YData', [y(8) y(4)]);
+        set(g(8), 'XData', [x(8) x(2)], 'YData', [y(8) y(2)]);
+        set(g(9), 'XData', [x(8) x(3)], 'YData', [y(8) y(3)]);
+        set(g(10), 'XData', [x(6) x(4)], 'YData', [y(6) y(4)]);
+        set(g(11), 'XData', [x(6) x(5)], 'YData', [y(6) y(5)]);
+        %set(g(13), 'XData', x(6), 'YData', y(6));
+        for i = 1: length(x)
+            if i == 6
+                plot(x(i), y(i), '.b');
+            end
+            set(g(i + 12), 'XData', x(i), 'YData', y(i));
+        end
+    end
 
-% Joint C
-positions(3, 1)  = l(3)*cos(t(3)) + positions(2, 1);
-positions(3, 2)  = l(3)*sin(t(3)) + positions(2, 2);
-
-% Joint D
-positions(4, 1)  = -(b) + l(7)*cos(t(7));
-positions(4, 2)  = -(a) + l(7)*sin(t(7));
-
-% Joint E
-positions(5, 1)  = l(8)*cos(t(8)) + positions(4, 1);
-positions(5, 2)  = l(8)*sin(t(8)) + positions(4, 2);
-
-% Joint F
-positions(6, 1)  = l(9)*cos(t(8) + c) + positions(4, 1);
-positions(6, 2)  = l(9)*sin(t(8) + c) + positions(4, 2);
-
-% Joint 0
-positions(7, 1) = 0;
-positions(7, 2) = 0;
-
-% Joint 1
-positions(8, 1) = -b;
-positions(8, 2) = -a;
-
-link = [positions(:,1) positions(:,2)];
-AB = line([positions(1,1) positions(2,1)],[positions(1,2) positions(2,2)]);
-BC = line([positions(2,1) positions(3,1)],[positions(2,2) positions(3,2)]);
-CE = line([positions(3,1) positions(5,1)],[positions(3,2) positions(5,2)]);
-ED = line([positions(5,1) positions(4,1)],[positions(5,2) positions(4,2)]);
-DA = line([positions(4,1) positions(1,1)],[positions(4,2) positions(1,2)]);
-ZA = line([positions(7,1) positions(1,1)],[positions(7,2) positions(1,2)]);
-OD = line([positions(8,1) positions(4,1)],[positions(8,2) positions(4,2)]);
-OB = line([positions(8,1) positions(2,1)],[positions(8,2) positions(2,2)]);
-OC = line([positions(8,1) positions(3,1)],[positions(8,2) positions(3,2)]);
-FD = line([positions(6,1) positions(4,1)],[positions(6,2) positions(4,2)]);
-FE = line([positions(6,1) positions(5,1)],[positions(6,2) positions(5,2)]);
-
-%line([A(1) B(1)], [A(2) B(2)]);
-%line([B(1) C(1)], [B(2) C(2)]);
-%line([C(1) E(1)], [C(2) E(2)]);
-%line([E(1) D(1)], [E(2) D(2)]);
-%line([D(1) A(1)], [D(2) A(2)]);
-%line([Z(1) A(1)], [Z(2) A(2)]);
-%line([O(1) D(1)], [O(2) D(2)]);
-%line([O(1) B(1)], [O(2) B(2)]);
-%line([O(1) C(1)], [O(2) C(2)]);
-%line([O(1) C(1)], [O(2) C(2)]);
-%line([F(1) D(1)], [F(2) D(2)]);
-%line([F(1) E(1)], [F(2) E(2)]);
-%plot(F(1), F(2), 'or');
-
-
-%% Update graphics data. This is more efficient than recreating plots.
-%set(GFXNAME, PROPERTY, VALUE, PROPERTY, VALUE, ...);
-%set(GFXNAME, PROPERTY, VALUE, PROPERTY, VALUE, ...);
-%set(GFXNAME, PROPERTY, VALUE, PROPERTY, VALUE, ...);
-%set(GFXNAME, PROPERTY, VALUE, PROPERTY, VALUE, ...);
-%...
-
-%% Capture the plot as an image 
-%frame = getframe(gcf); 
-%im = frame2im(frame); 
-%[imind,cm] = rgb2ind(im,256); 
-%
-%% Write to the GIF File 
-%if i == 1 
-%  imwrite(imind,cm,'filename','gif', 'Loopcount',inf); 
-%else 
-%  imwrite(imind,cm,'filename','gif','WriteMode','append'); 
-%end
+end
