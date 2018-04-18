@@ -32,7 +32,7 @@ function [frame] = generate_frame(x, y)
         for i = 1: length(x)
             g(i + 12) = plot(x(i), y(i), '.k', 'MarkerSize', 50);
         end
-        
+
     else
         set(g(1), 'XData', [x(1) x(2)], 'YData', [y(1) y(2)]);
         set(g(2), 'XData', [x(2) x(3)], 'YData', [y(2) y(3)]);
@@ -45,7 +45,6 @@ function [frame] = generate_frame(x, y)
         set(g(9), 'XData', [x(8) x(3)], 'YData', [y(8) y(3)]);
         set(g(10), 'XData', [x(6) x(4)], 'YData', [y(6) y(4)]);
         set(g(11), 'XData', [x(6) x(5)], 'YData', [y(6) y(5)]);
-        %set(g(13), 'XData', x(6), 'YData', y(6));
         for i = 1: length(x)
             if i == 6
                 plot(x(i), y(i), '.b');
@@ -54,4 +53,7 @@ function [frame] = generate_frame(x, y)
         end
     end
 
+
+    % Capture the current figure as a frame and return.
+    frame = getframe(gcf); 
 end

@@ -11,15 +11,15 @@ function [faces, vertices] = generate_3d_link(x1, x2, y1, y2, z1, z2, link_width
 % ENVIRONMENT
 % ----------------------------------------------------------------------------
 
-	face_1 = [(x1-link_width/2) y1 (z1-link_height);
-	          (x1-link_width/2) y1 (z1+link_height);
-	          (x1+link_width/2) y1 (z1-link_height);
-	          (x1+link_width/2) y1 (z1+link_height)];
+	face_1 = [(x1-link_width/2) (y1-link_width/2) (z1-link_height/2);
+	          (x1-link_width/2) (y1+link_width/2) (z1+link_height/2);
+	          (x1+link_width/2) (y1-link_width/2) (z1-link_height/2);
+	          (x1+link_width/2) (y1+link_width/2) (z1+link_height/2)];
 
-	face_2 = [(x2-link_width/2) y2 (z2-link_height);
-	          (x2-link_width/2) y2 (z2+link_height);
-	          (x2+link_width/2) y2 (z2-link_height);
-	          (x2+link_width/2) y2 (z2+link_height)];
+	face_2 = [(x2-link_width/2) (y2-link_width/2) (z2-link_height/2);
+	          (x2-link_width/2) (y2+link_width/2) (z2+link_height/2);
+	          (x2+link_width/2) (y2-link_width/2) (z2-link_height/2);
+	          (x2+link_width/2) (y2+link_width/2) (z2+link_height/2)];
 
 	ver = [face_1; face_2];
 
@@ -32,7 +32,4 @@ function [faces, vertices] = generate_3d_link(x1, x2, y1, y2, z1, z2, link_width
 	         3 1 5 7];
 
 	vertices = [ver(:,1),ver(:,2),ver(:,3)];
-
-	%link = patch('Faces',faces,'Vertices',vertices,'FaceColor','b');
-
 end
