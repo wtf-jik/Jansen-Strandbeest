@@ -1,11 +1,13 @@
 function [faces, vertices] = generate_3d_link(x1, x2, y1, y2, z1, z2, link_width, link_height)
-%Calculates the gain of a basic common-emiiter BJT amplifier.
+%Calculates the faces and vertices of a 3D link in 3D space.
 %   VERSION 1
-%   Takes no input.
+%
+%   Takes in individual XYZ co-ordinates for two points, and width and length of link.
+%	Returns faces and vertices of said link. 
 %   
 %
 %   Examples:
-%   generate_frame()
+%   generate_3d_link(1, 14, 2, 4, -12, 12, 2, 4);
 %
 %   John Casey :: 14350111
 

@@ -27,7 +27,7 @@ function [] = jansen(varargin)
 % INITIAL VALUES FOR UNKNOWNS
 %
 % NOTE: These parameters require that all values be entered in the correct order.
-%       Please see imgur.com/TODO for more details. Alternatively details are
+%       Please see imgur.com/t7q9967.png for more details. Alternatively details are
 %       available in my report.
 %
 % 'initialangles'           : An 8x1 vector containing initial angles. (Rads)

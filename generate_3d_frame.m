@@ -1,44 +1,52 @@
 function [frame] = generate_3D_frame(x, y)
-%Calculates the gain of a basic common-emiiter BJT amplifier.
+%Creates a 3D visualisation of the Jansen linkage.
 %   VERSION 1
-%   Takes no input.
+%
+%   Takes in 2 seperate 1xN arrays of x, and y co-ordinates. Returns a frame
+%   of animation.
 %   
 %
 %   Examples:
-%   generate_frame()
+%   generate_3Dframe(x, y)
 %
 %   John Casey :: 14350111
 
-[m,n] = size(x);
-[o,p] = size(y);
-if m ~= 1;
-    error('Incorrect size for argument x. Array must be a 1D array.');
-end;
-if o ~= 1;
-    error('Incorrect size for argument y. Array must be a 1D array.');
-end;
-if n ~= p;
-    error('Arguments x and y must be the same length.');
-end;
-if ~isnumeric(x) || ~isnumeric(y);
-    error('Co-ordinates must be numeric.');
-end;
+% INPUT VALIDATION
+% -----------------------------------------------------------------------------
+
+    [m,n] = size(x);
+    [o,p] = size(y);
+    if m ~= 1;
+        error('Incorrect size for argument x. Array must be a 1D array.');
+    end;
+    if o ~= 1;
+        error('Incorrect size for argument y. Array must be a 1D array.');
+    end;
+    if n ~= p;
+        error('Arguments x and y must be the same length.');
+    end;
+    if ~isnumeric(x) || ~isnumeric(y);
+        error('Co-ordinates must be numeric.');
+    end;
 
 % ENVIRONMENT
-% ----------------------------------------------------------------------------
+% -----------------------------------------------------------------------------
+
     frame_thickness = 2;
     surface_resolution = 100;
     figure_resolution = [1600 1600 1600 1600];
     axis_size = [-120 50 -120 50 -120 50];
     light_angle = [45 70];
     figure_view = [-30 80];
-    %Z_pos = 0;
+    Z_pos = 0;
 
     r = frame_thickness; n = surface_resolution;   
     [X,Y,Z] = cylinder(r,n);
     Z(2, :) = frame_thickness*2;
-
     persistent g;
+
+% COMPUTATION
+% -----------------------------------------------------------------------------
 
     link = [1 2;
             2 3;
@@ -70,7 +78,6 @@ end;
                                 Z_pos,...
                                 frame_thickness,...
                                 frame_thickness);
-            
                 
             g(i) = patch('Faces',faces,'Vertices',vertices,'FaceColor','b','LineStyle','none');
         end

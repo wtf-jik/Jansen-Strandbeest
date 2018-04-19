@@ -1,15 +1,25 @@
 function [x, y] = joint_coords(l, t, ti, a, b)
-%Calculates the x and y co-ordinates of each joint for given link angles and
-%lengths.
-%   VERSION 1
-%   Takes no input.
+%Calculates the x,y positions of each joint in the Jansen linkage in 2D space.
+%   VERSION 1.2
+%   Takes the following input:
+%   nr(l, a, b, t, ti, max_iter, tolerance, verbose)
+%       l           :   1D vertical array of 10 link lengths.
+%       t           :   1D array of initial estimates for angles.
+%       ti          :   Current crank angle.
+%       a           :   Fixed joint on the Y axis co-ordinate.
+%       b           :   Fixed joint on the X axis co-ordinate.
 %   
-%
 %   Examples:
-%   joint_coords()
+%   joint_coords( [50; 41.5; 55.8; 40.1; 39.4; 61.9; 39.3; 36.7; 49; 15],
+%       		  [2.5; 2; 4.3; 3.5; 4; 3.8; 3.9; 3.7],
+%       		   3.14,
+%       		   7.8,
+%       		   38,
 %
 %   John Casey :: 14350111
 
+% INPUT VALIDATION
+% -----------------------------------------------------------------------------
 
 [m,n] = size(l);
 [o,p] = size(t);
@@ -26,8 +36,8 @@ if ~isnumeric(t) || ~isnumeric(ti);
     error('All angles must be numberic or an array of numbers.');
 end;
 
-% ENVIRONMENT
-% ----------------------------------------------------------------------------
+% COMPUTATION
+% -----------------------------------------------------------------------------
 
 l_10 = 65.7;
 

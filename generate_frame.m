@@ -2,11 +2,13 @@ function [frame] = generate_frame(x, y)
 %Generates a 2D visualisation of the Jansen linkage for a given set of link
 %co-ordinates.
 %   VERSION 1.1
-%   Takes no input.
+%
+%   Takes in 2 seperate 1xN arrays of x, and y co-ordinates. Returns a frame
+%   of animation.
 %   
 %
 %   Examples:
-%   generate_frame()
+%   generate_frame(x, y)
 %
 %   John Casey :: 14350111
 
