@@ -1,5 +1,6 @@
 function [faces, vertices] = generate_3d_link(x1, x2, y1, y2, z1, z2, link_width, link_height)
 %Calculates the gain of a basic common-emiiter BJT amplifier.
+%   VERSION 1
 %   Takes no input.
 %   
 %
@@ -7,6 +8,13 @@ function [faces, vertices] = generate_3d_link(x1, x2, y1, y2, z1, z2, link_width
 %   generate_frame()
 %
 %   John Casey :: 14350111
+
+if link_width < 0 || link_height < 0;
+    error('Link dimensions must be greater than zero.');
+end;
+if ~isnumeric(x1) || ~isnumeric(x2) || ~isnumeric(y1) || ~isnumeric(y2) || ~isnumeric(z2) || ~isnumeric(z2);
+    error('Co-ordinates must be numeric.');
+end;
 
 % ENVIRONMENT
 % ----------------------------------------------------------------------------

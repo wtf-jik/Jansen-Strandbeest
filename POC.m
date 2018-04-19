@@ -1,12 +1,13 @@
-function [gain] = jansen_linkage(varargin)
+function [] = jansen(varargin)
 %Model the behaviour of the Jansen linkage.
+% VERSION 1.3
 % No input arguments requirement. The following optional arguments are available.
-% Note that though input arguments are case-insensitive, they must be pass as key:value pairs.
+% Note that though input arguments are case-insensitive, they must be passed as key:value pairs.
 % If no value is supplied, sane defaults are used, either derivied empirically, or supplied in
 % in the problem set.
 %
 % LINKAGE PARAMETERS
-% NOTE: Be advised that should you use this parameter, you likely have to supply
+% NOTE: Be advised that should you use this parameter, you will likely have to supply
 %       somewhat accurate initial values for the angle of each link. See the
 %       'InitialAngles' parameter below.
 %
@@ -32,21 +33,25 @@ function [gain] = jansen_linkage(varargin)
 % 'linklengths'             : An 8x1 vector containing link lengths. (Unitless)
 %   
 % Examples:
-%   gain = jansen()
-%   gain = jansen('tolerance', 1e-10)
-%   gain = jansen('creategif', true)
-%   gain = jansen('plotdimensions', 3)
+%   jansen()
+%   jansen('tolerance', 1e-10)
+%   jansen('creategif', true)
+%   jansen('plotdimensions', 3)
 %
 % John Casey :: 14350111
 
-% Input Validation
-% ----------------------------------------------------------------------------
+% Default Values
+% -----------------------------------------------------------------------------
+
 DEFAULT_L = [50; 41.5; 55.8; 40.1; 39.4; 61.9; 39.3; 36.7; 49; 15];
 DEFAULT_T = [2.5; 2; 4.3; 3.5; 4; 3.8; 3.9; 3.7];
 
-args = struct('maxiterations', 100,'tolerance', 1e-10, 'resolution', 1e-5,...
+% Input Validation
+% -----------------------------------------------------------------------------
+
+args = struct('maxiterations', 10,'tolerance', 1e-10, 'resolution', 1e-5,...
               'verbose', false, 'creategif', true, 'crankangle', ...
-              [pi:0.01:3*pi], 'plotdimensions', 3, 'initialangles', ...
+              [pi:0.01:3*pi], 'plotdimensions', 2, 'initialangles', ...
               DEFAULT_T, 'linklengths', DEFAULT_L);
 arg_names = fieldnames(args);
 
@@ -72,32 +77,31 @@ end
 max_iter    = args.maxiterations;    % Maximum allowed number of iterations.
 tolerance   = args.tolerance;        % Defined tolerance for value of F.
 
-
 % LINKAGE PARAMETERS
 % -----------------------------------------------------------------------------
 
 a = 7.8;        % Fixed Joint 1. (0, 7.8)
 b = 38;         % Fixed Joint 0. (-38, 0)
-c = 1.729556;   % TODO
 
 l = args.linklengths;
 t = args.initialangles;
 
 crank = args.crankangle;
 
-
 % =============================================================================
 
 % COMPUTATION
 % -----------------------------------------------------------------------------
-Df = zeros(8,8);
-
 
 for i = 1: length(crank)
     % For each crank angle, iterate Newton Raphon until an exiting condition is
     % reached.
+    if args.verbose == true;
+      fprintf('Crank angle: %f\n', crank(i));
+    end
+
     t = nr(l, a, b, t, crank(i), max_iter, tolerance, args.verbose);
-    [x, y] = joint_coords(l, t, crank(i), a, b, c); % Generate a set of tuples
+    [x, y] = joint_coords(l, t, crank(i), a, b); % Generate a set of tuples
                                                     % which hold paired x,y 
                                                     % values for the locations
                                                     % of each joint.
@@ -125,5 +129,3 @@ for i = 1: length(crank)
         end
     end
 end
-
-

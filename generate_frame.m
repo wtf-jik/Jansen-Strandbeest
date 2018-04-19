@@ -1,5 +1,7 @@
 function [frame] = generate_frame(x, y)
-%Calculates the gain of a basic common-emiiter BJT amplifier.
+%Generates a 2D visualisation of the Jansen linkage for a given set of link
+%co-ordinates.
+%   VERSION 1.1
 %   Takes no input.
 %   
 %
@@ -7,6 +9,21 @@ function [frame] = generate_frame(x, y)
 %   generate_frame()
 %
 %   John Casey :: 14350111
+
+[m,n] = size(x);
+[o,p] = size(y);
+if m ~= 1;
+    error('Incorrect size for argument x. Array must be a 1D array.');
+end;
+if o ~= 1;
+    error('Incorrect size for argument y. Array must be a 1D array.');
+end;
+if n ~= p;
+    error('Arguments x and y must be the same length.');
+end;
+if ~isnumeric(x) || ~isnumeric(y);
+    error('Co-ordinates must be numeric.');
+end;
 
 % ENVIRONMENT
 % ----------------------------------------------------------------------------
@@ -16,7 +33,7 @@ function [frame] = generate_frame(x, y)
     if isempty(g)
         g(12) = figure('units','pixels','position',[800 800 800 800]);
         hold on;
-        axis([-120 50 -120 50]);
+        axis([-100 70 -120 50]);
         axis off;
         g(1) = line([x(1) x(2)],[y(1) y(2)],'Color','k','LineWidth',8);
         g(2) = line([x(2) x(3)],[y(2) y(3)],'Color','k','LineWidth',8);
@@ -47,7 +64,11 @@ function [frame] = generate_frame(x, y)
         set(g(11), 'XData', [x(6) x(5)], 'YData', [y(6) y(5)]);
         for i = 1: length(x)
             if i == 6
-                plot(x(i), y(i), '.b');
+                if y(i) < -83;
+                    plot(x(i), y(i), '.r');
+                else
+                    plot(x(i), y(i), '.b');
+                end
             end
             set(g(i + 12), 'XData', x(i), 'YData', y(i));
         end

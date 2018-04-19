@@ -1,5 +1,6 @@
-function [frame] = generate_frame(x, y)
+function [frame] = generate_3D_frame(x, y)
 %Calculates the gain of a basic common-emiiter BJT amplifier.
+%   VERSION 1
 %   Takes no input.
 %   
 %
@@ -7,6 +8,21 @@ function [frame] = generate_frame(x, y)
 %   generate_frame()
 %
 %   John Casey :: 14350111
+
+[m,n] = size(x);
+[o,p] = size(y);
+if m ~= 1;
+    error('Incorrect size for argument x. Array must be a 1D array.');
+end;
+if o ~= 1;
+    error('Incorrect size for argument y. Array must be a 1D array.');
+end;
+if n ~= p;
+    error('Arguments x and y must be the same length.');
+end;
+if ~isnumeric(x) || ~isnumeric(y);
+    error('Co-ordinates must be numeric.');
+end;
 
 % ENVIRONMENT
 % ----------------------------------------------------------------------------
@@ -16,7 +32,7 @@ function [frame] = generate_frame(x, y)
     axis_size = [-120 50 -120 50 -120 50];
     light_angle = [45 70];
     figure_view = [-30 80];
-    Z_pos = 0;
+    %Z_pos = 0;
 
     r = frame_thickness; n = surface_resolution;   
     [X,Y,Z] = cylinder(r,n);
